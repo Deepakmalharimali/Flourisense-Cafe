@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 20 18% 7%;
+    --foreground: 30 30% 90%;
+
+    --card: 20 20% 12%;
+    --card-foreground: 30 30% 90%;
+
+    --popover: 20 20% 10%;
+    --popover-foreground: 30 30% 90%;
+
+    --primary: 24 30% 50%;
+    --primary-foreground: 30 40% 95%;
+
+    --secondary: 20 18% 16%;
+    --secondary-foreground: 30 30% 85%;
+
+    --muted: 20 15% 14%;
+    --muted-foreground: 25 15% 55%;
+
+    --accent: 30 35% 55%;
+    --accent-foreground: 20 18% 7%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 20 15% 20%;
+    --input: 20 15% 18%;
+    --ring: 24 30% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 20 18% 9%;
+    --sidebar-foreground: 30 30% 85%;
+    --sidebar-primary: 24 30% 50%;
+    --sidebar-primary-foreground: 30 40% 95%;
+    --sidebar-accent: 20 15% 14%;
+    --sidebar-accent-foreground: 30 30% 85%;
+    --sidebar-border: 20 15% 20%;
+    --sidebar-ring: 24 30% 50%;
+
+    /* Custom tokens */
+    --warm: 30 40% 88%;
+    --warm-foreground: 20 30% 15%;
+    --cream: 33 50% 93%;
+    --espresso: 20 40% 10%;
+    --mocha: 24 28% 42%;
+    --caramel: 30 50% 60%;
+    --gradient-warm: linear-gradient(135deg, hsl(24 30% 50%), hsl(30 50% 60%));
+    --gradient-dark: linear-gradient(180deg, hsl(20 18% 7%), hsl(20 20% 12%));
+    --shadow-warm: 0 10px 40px -10px hsl(24 30% 50% / 0.25);
+    --shadow-glow: 0 0 30px hsl(24 30% 50% / 0.15);
+
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50;
+  }
+  .glass-strong {
+    @apply bg-card/80 backdrop-blur-2xl border border-border/60;
+  }
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-warm);
+  }
+  .gradient-warm-bg {
+    background-image: var(--gradient-warm);
+  }
+  .shadow-warm {
+    box-shadow: var(--shadow-warm);
+  }
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
