@@ -5,12 +5,12 @@ import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const CartDrawer = () => {
-  const { items, isOpen, setIsOpen, totalPrice, updateQuantity, removeItem, clearCart } = useCart();
+const { items, isOpen, toggleCart, totalPrice, updateQuantity, removeItem, clearCart } = useCart();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleProceed = () => {
-    setIsOpen(false);
+    toggleCart();
     if (isAuthenticated) {
       navigate("/checkout");
     } else {
@@ -26,7 +26,7 @@ const CartDrawer = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
+onClick={() => toggleCart()}
             className="fixed inset-0 bg-background/60 backdrop-blur-sm z-50"
           />
           <motion.div
@@ -40,7 +40,7 @@ const CartDrawer = () => {
               <h2 className="font-heading font-bold text-lg flex items-center gap-2">
                 <ShoppingBag className="w-5 h-5 text-primary" /> Your Cart
               </h2>
-              <button onClick={() => setIsOpen(false)} className="p-2 rounded-lg hover:bg-secondary transition-colors">
+  <button onClick={() => toggleCart()} className="p-2 rounded-lg hover:bg-secondary transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -69,7 +69,7 @@ const CartDrawer = () => {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-7 h-7 rounded-full bg-muted flex items-center justify-center"
+                        className="w-7 h-7 rounded-full bg-muted flex items-center justify-center hover:bg-destructive"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
@@ -79,6 +79,13 @@ const CartDrawer = () => {
                         className="w-7 h-7 rounded-full gradient-warm-bg flex items-center justify-center text-accent-foreground"
                       >
                         <Plus className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        className="w-7 h-7 rounded-full bg-destructive/10 hover:bg-destructive text-destructive hover:text-destructive-foreground flex items-center justify-center"
+                        title="Remove item"
+                      >
+                        <X className="w-3 h-3" />
                       </button>
                     </div>
                   </motion.div>

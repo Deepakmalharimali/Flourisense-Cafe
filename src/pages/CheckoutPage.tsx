@@ -18,9 +18,15 @@ const paymentOptions: { id: PaymentMethod; label: string; icon: string }[] = [
 
 const CheckoutPage = () => {
   const { items, totalPrice, clearCart } = useCart();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  
+  useEffect(() => {
+    if (!isAuthenticated && items.length > 0) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, items.length, navigate]);
   const [selectedPayment, setSelectedPayment] = useState<PaymentMethod | null>(null);
   const [orderState, setOrderState] = useState<"checkout" | "processing" | "success" | "feedback">("checkout");
   const [loading, setLoading] = useState(false);

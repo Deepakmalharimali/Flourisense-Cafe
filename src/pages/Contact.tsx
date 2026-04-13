@@ -38,8 +38,8 @@ const Contact = () => {
   };
 
 
-  const whatsappUrl = 'https://wa.me/919876543210?text=Hi Flourisense, I have a query...';
-  const callUrl = 'tel:+919876543210';
+  const whatsappUrl = 'https://wa.me/917020826752?text=Hi Flourisense, I have a query...';
+  const callUrl = 'tel:+917020826752';
   const emailUrl = 'mailto:hello@flourisense.com';
 
   return (
@@ -75,7 +75,7 @@ const Contact = () => {
                   <CardContent className="pt-0 text-center">
                     <Button variant="ghost" size="lg" className="h-auto px-0 gap-2 text-lg font-semibold" asChild>
                       <a href={callUrl}>
-                        +91 98765 43210
+                        +91 70208 26752
                         <Phone className="w-5 h-5" />
                       </a>
                     </Button>
