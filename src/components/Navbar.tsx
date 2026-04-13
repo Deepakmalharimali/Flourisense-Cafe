@@ -16,7 +16,7 @@ const navLinks = [
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  const { totalItems, setIsOpen } = useCart();
+const { totalItems, toggleCart } = useCart();
   const { isAuthenticated, user, logout } = useAuth();
 
   return (
@@ -56,7 +56,7 @@ const Navbar = () => {
           )}
 
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={() => toggleCart()}
             className="relative p-2 rounded-lg hover:bg-secondary transition-colors"
           >
             <ShoppingBag className="w-5 h-5 text-foreground" />
@@ -74,7 +74,7 @@ const Navbar = () => {
 
         {/* Mobile */}
         <div className="flex md:hidden items-center gap-2">
-          <button onClick={() => setIsOpen(true)} className="relative p-2">
+          <button onClick={() => toggleCart()} className="relative p-2">
             <ShoppingBag className="w-5 h-5 text-foreground" />
             {totalItems > 0 && (
               <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full gradient-warm-bg text-xs font-bold flex items-center justify-center text-accent-foreground">
