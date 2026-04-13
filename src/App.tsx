@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import Index from "./pages/Index";
 import MenuPage from "./pages/MenuPage";
+import Gallery from "./pages/Gallery";
 import About from "./pages/About";
 import LoginPage from "./pages/LoginPage";
 import CheckoutPage from "./pages/CheckoutPage";
@@ -29,9 +30,7 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
-              {/* Display screen - no navbar */}
               <Route path="/orders-display" element={<OrdersDisplayPage />} />
-              {/* All other pages with navbar */}
               <Route
                 path="*"
                 element={
@@ -41,6 +40,7 @@ const App = () => (
                     <Routes>
                       <Route path="/" element={<Index />} />
                       <Route path="/menu" element={<MenuPage />} />
+                      <Route path="/gallery" element={<Gallery />} />
                       <Route path="/about" element={<About />} />
                       <Route path="/login" element={<LoginPage />} />
                       <Route path="/checkout" element={<CheckoutPage />} />
@@ -61,3 +61,4 @@ const App = () => (
 );
 
 export default App;
+
