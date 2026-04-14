@@ -57,7 +57,7 @@ const branches: Branch[] = [
   },
   {
     id: 'airport',
-    name: 'Flourisense Airport Lounge',
+    name: 'Airport Lounge',
     address: 'Terminal 2, Chhatrapati Shivaji Airport, Mumbai 400099',
     phone: '+91 98765 43213',
     timings: '24/7',
@@ -118,7 +118,7 @@ const Locations = () => {
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch"
           >
             {branches.map((branch, index) => (
               <motion.div
@@ -128,17 +128,20 @@ const Locations = () => {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
               >
-                <Card className="glass h-full overflow-hidden group hover:shadow-xl transition-all border-0">
+                <Card className="glass h-full flex flex-col overflow-hidden group hover:shadow-2xl hover:shadow-warm transition-all duration-300 border-0 hover:-translate-y-1">
                   <div className="relative h-48 overflow-hidden">
                     <img 
                       src={branch.image}
                       alt={branch.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=224&fit=crop';
+                      }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent" />
                   </div>
-                  <CardHeader className="pb-4 pt-6">
-                    <CardTitle className="font-heading text-xl mb-2">{branch.name}</CardTitle>
+                  <CardHeader className="pb-3 pt-6 flex-1">
+                    <CardTitle className="font-heading text-xl line-clamp-2 mb-2">{branch.name}</CardTitle>
                     <div className="flex items-center gap-2 mb-2 text-sm text-primary">
                       <MapPin className="w-4 h-4" />
                       {branch.address}
@@ -158,27 +161,44 @@ const Locations = () => {
                       </div>
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="pb-6 pt-0">
+                  <CardContent className="pt-0 pb-0 flex-1 flex flex-col">
                     {branch.popularItems.length > 0 && (
-                      <div className="mb-4">
+                      <div className="mb-3 h-[52px]">
                         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">Popular Here</p>
-                        <div className="flex flex-wrap gap-1">
-                          {branch.popularItems.map((item) => (
-                            <span key={item} className="px-2 py-1 rounded-full bg-primary/10 text-xs text-primary">
+                    <div className="h-10 flex items-center gap-1 overflow-hidden">
+                          {branch.popularItems.slice(0,3).map((item) => (
+                            <span key={item} className="px-2 py-1 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 text-xs text-primary backdrop-blur-sm whitespace-nowrap flex-shrink-0 truncate max-w-[80px]">
                               {item}
                             </span>
                           ))}
+                          {branch.popularItems.length > 3 && (
+                            <span className="px-2 py-1 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 text-xs text-muted-foreground backdrop-blur-sm whitespace-nowrap">
+                              +{branch.popularItems.length - 3}
+                            </span>
+                          )}
                         </div>
                       </div>
                     )}
-                    <div className="flex gap-2">
-                      <Button onClick={() => handleBranchClick(branch)} className="flex-1 gradient-warm-bg text-accent-foreground">
-                        <Navigation className="w-4 h-4 mr-1" />
-                        Get Directions
+                    <div className="grid grid-cols-2 gap-3 pt-4 pb-6 mt-auto border-t border-border/50 px-4">
+                      <Button 
+                        variant="outline" 
+                        size="lg" 
+                        className="h-12 p-4 text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.01] font-medium leading-none tracking-tight rounded-lg"
+                        onClick={() => handleBranchClick(branch)}
+                      >
+                        <div className="flex items-center justify-center gap-2">
+                          <Navigation className="w-4 h-4" />
+                          Directions
+                        </div>
                       </Button>
-                      <Button variant="outline" className="flex-1" asChild>
-                        <a href={`/menu?branch=${branch.id}`}>
-                          Order Now <ArrowRight className="w-4 h-4 ml-1" />
+                      <Button 
+                        size="lg"
+                        className="h-12 p-4 text-sm font-semibold flex items-center justify-center gap-2 gradient-warm-bg text-accent-foreground shadow-lg hover:shadow-xl hover:shadow-glow transition-all duration-200 hover:scale-[1.01] hover:brightness-105 font-medium leading-none tracking-tight rounded-lg"
+                        asChild
+                      >
+                        <a href={`/menu?branch=${branch.id}`} className="flex items-center justify-center gap-2 w-full h-full">
+                          Order Now 
+                          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                         </a>
                       </Button>
                     </div>
@@ -213,15 +233,15 @@ const Locations = () => {
                 <Button
                   key={branch.id}
                   variant="outline"
-                  className="h-auto p-4 text-left justify-start gap-3"
+                  className="group flex-1 min-w-0 h-auto p-3 text-left justify-start gap-3 !text-foreground hover:!text-foreground hover:bg-accent/80 hover:shadow-md transition-all"
                   onClick={() => handleBranchClick(branch)}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                  <div className="w-10 h-10 flex-shrink-0 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center opacity-100 group-hover:opacity-100">
                     {branch.image.split('').slice(-1)[0] || '📍'}
                   </div>
-                  <div>
-                    <div className="font-medium">{branch.name}</div>
-                    <div className="text-xs text-muted-foreground truncate">{branch.address}</div>
+                  <div className="flex-1 min-w-0 flex flex-col">
+                    <div className="font-medium line-clamp-1 text-sm text-foreground group-hover:text-card-foreground">{branch.name}</div>
+                    <div className="text-xs text-muted-foreground group-hover:text-muted-foreground truncate line-clamp-1">{branch.address}</div>
                   </div>
                 </Button>
               ))}
